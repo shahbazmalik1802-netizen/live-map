@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Live GPS Map with Profile Picture & Flood Zones</title>
+  <title>Live GPS Map - Shahbaz</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
   <style>
@@ -80,9 +80,10 @@
   <script>
     let map, userMarker, userIcon;
     
-    // ✅ Default user data (no login required)
+    // ✅ Default data (always Shahbaz)
     let userData = JSON.parse(localStorage.getItem("user")) || {
-      fname: "Guest",
+      fname: "Shahbaz",
+      description: "This is the live location of me",
       photo: "https://via.placeholder.com/50"
     };
 
@@ -118,13 +119,14 @@
             } else {
               userMarker = L.marker([lat, lon], { icon: userIcon }).addTo(map);
 
-              // Popup with photo + name
+              // Popup with photo + Shahbaz + description
               const popupContent = `
                 <div style="text-align:center;">
+                  <h3 style="margin:5px 0; color:#0a5081;">📍 Live Location</h3>
                   <img src="${userPhoto}" 
                        style="width:150px; height:150px; border-radius:12px; border:2px solid #333; box-shadow:0 4px 8px rgba(0,0,0,0.4);" />
-                  <p style="margin-top:8px; font-weight:bold; color:#222;">👤 ${userData.fname}</p>
-                  <p style="font-size:13px; color:#555;">This is the live location of ${userData.fname}. Stay safe and updated!</p>
+                  <p style="margin-top:8px; font-weight:bold; color:#222; font-size:18px;">👤 ${userData.fname}</p>
+                  <p style="font-size:14px; color:#555;">${userData.description}</p>
                 </div>
               `;
               userMarker.bindPopup(popupContent).openPopup();
@@ -211,10 +213,11 @@
           // Update popup too
           const updatedPopup = `
             <div style="text-align:center;">
+              <h3 style="margin:5px 0; color:#0a5081;">📍 Live Location</h3>
               <img src="${newPhoto}" 
                    style="width:150px; height:150px; border-radius:12px; border:2px solid #333; box-shadow:0 4px 8px rgba(0,0,0,0.4);" />
-              <p style="margin-top:8px; font-weight:bold; color:#222; font-size:22px;">👤 ${userData.fname}</p>
-              <p style="font-size:13px; color:#555;">This is the live location of ${userData.fname}. Stay safe and updated!</p>
+              <p style="margin-top:8px; font-weight:bold; color:#222; font-size:18px;">👤 ${userData.fname}</p>
+              <p style="font-size:14px; color:#555;">${userData.description}</p>
             </div>
           `;
           userMarker.bindPopup(updatedPopup);
