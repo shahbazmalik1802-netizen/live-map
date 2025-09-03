@@ -69,7 +69,6 @@
 
   <div class="controls">
     <button onclick="triggerPhotoUpload()">📷 Change Picture</button>
-    <button onclick="logout()">🚪 Logout</button>
     <input type="file" id="photoInput" accept="image/*" onchange="updatePhoto(event)">
   </div>
 
@@ -79,28 +78,34 @@
   <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
   
   <script>
-    let map, userMarker, userIcon, userData;
+    let map, userMarker, userIcon;
+    
+    // ✅ Default user data (no login required)
+    let userData = JSON.parse(localStorage.getItem("user")) || {
+      fname: "Guest",
+      photo: "https://via.placeholder.com/50"
+    };
 
     window.onload = function () {
-      // 🔒 Check login first
-     
-      // ✅ Get user data
-      userData = JSON.parse(localStorage.getItem("user"));
-      const userPhoto = userData && userData.photo ? userData.photo : "https://via.placeholder.com/50";
+      const userPhoto = userData.photo;
+
       // Initialize Map
       map = L.map('map');
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
       }).addTo(map);
       document.getElementById("map").classList.add("show");
+
       // ✅ Add Search Control
       L.Control.geocoder({ defaultMarkGeocode: true }).addTo(map);
+
       // Custom icon with photo
       userIcon = L.icon({
         iconUrl: userPhoto,
         iconSize: [50, 50],
         className: "custom-icon"
       });
+
       // Watch live location
       if (navigator.geolocation) {
         navigator.geolocation.watchPosition(
@@ -113,7 +118,7 @@
             } else {
               userMarker = L.marker([lat, lon], { icon: userIcon }).addTo(map);
 
-              // 🖼️ Custom popup with big photo + description
+              // Popup with photo + name
               const popupContent = `
                 <div style="text-align:center;">
                   <img src="${userPhoto}" 
@@ -135,11 +140,12 @@
       } else {
         alert("Geolocation is not supported by your browser.");
       }
-      // 🔹 Add Flood Zones
+
+      // Flood Zones
       const floodZones = [
         {
           name: "Flood Zone A (Severe)",
-          color: "rgba(204, 153, 0, 0.8)", // Dark Yellow
+          color: "rgba(204, 153, 0, 0.8)",
           coords: [
             [31.5204, 74.3587], 
             [31.5304, 74.3687],
@@ -149,7 +155,7 @@
         },
         {
           name: "Flood Zone B (Moderate)",
-          color: "rgba(0, 0, 139, 0.8)", // Dark Blue
+          color: "rgba(0, 0, 139, 0.8)",
           coords: [
             [24.8607, 67.0011], 
             [24.8707, 67.0111],
@@ -161,16 +167,15 @@
 
       floodZones.forEach(zone => {
         const polygon = L.polygon(zone.coords, {
-          color: zone.color,       
-          weight: 3,               
-          fillColor: zone.color,   
+          color: zone.color,
+          weight: 3,
+          fillColor: zone.color,
           fillOpacity: 0.8
         }).addTo(map);
 
         polygon.bindPopup(`🌊 <b>${zone.name}</b>`);
       });
 
-      // ✅ Fit map to show all flood zones
       const allCoords = floodZones.flatMap(zone => zone.coords);
       map.fitBounds(allCoords);
     };
@@ -203,7 +208,7 @@
         if (userMarker) {
           userMarker.setIcon(userIcon);
 
-          // 🖼️ Update popup too
+          // Update popup too
           const updatedPopup = `
             <div style="text-align:center;">
               <img src="${newPhoto}" 
@@ -212,21 +217,12 @@
               <p style="font-size:13px; color:#555;">This is the live location of ${userData.fname}. Stay safe and updated!</p>
             </div>
           `;
-          userMarker.bindPopup(updatedPopup).openPopup();
+          userMarker.bindPopup(updatedPopup);
         }
         alert("✅ Profile picture updated!");
       };
       reader.readAsDataURL(file);
     }
-
-    // 🚪 Logout
-    function logout() {
-      // Implementation of logout functionality
-      alert("Logged out successfully!");
-    }
-
-    localStorage.setItem("user", JSON.stringify({ fname: "John Doe", photo: "https://via.placeholder.com/50" }));
-
   </script>
 </body>
 </html>
