@@ -83,7 +83,7 @@
 
     window.onload = function () {
       // 🔒 Check login first
-      
+     
       // ✅ Get user data
       userData = JSON.parse(localStorage.getItem("user"));
       const userPhoto = userData && userData.photo ? userData.photo : "https://via.placeholder.com/50";
@@ -212,14 +212,21 @@
               <p style="font-size:13px; color:#555;">This is the live location of ${userData.fname}. Stay safe and updated!</p>
             </div>
           `;
-          userMarker.bindPopup(updatedPopup);
+          userMarker.bindPopup(updatedPopup).openPopup();
         }
         alert("✅ Profile picture updated!");
       };
       reader.readAsDataURL(file);
     }
 
-   
+    // 🚪 Logout
+    function logout() {
+      // Implementation of logout functionality
+      alert("Logged out successfully!");
+    }
+
+    localStorage.setItem("user", JSON.stringify({ fname: "John Doe", photo: "https://via.placeholder.com/50" }));
+
   </script>
 </body>
 </html>
