@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Live GPS Map - Shahbaz</title>
+  <title>Live GPS Map - User Customizable</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
   <style>
@@ -16,7 +16,7 @@
     }
 
     #map {
-      height: calc(100vh - 100px);
+      height: calc(100vh - 200px);
       width: 90%;
       margin: 20px auto;
       border-radius: 12px;
@@ -62,12 +62,62 @@
     input[type="file"] {
       display: none;
     }
+    
+    .user-profile-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .user-profile-form {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+    }
+    
+    .user-profile-form input, .user-profile-form textarea {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    
+    .user-profile-form button {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
+  <div id="userProfileModal" class="user-profile-modal">
+    <div class="user-profile-form">
+      <h2>Customize Your Profile</h2>
+      <input type="text" id="userName" placeholder="Enter your name" />
+      <textarea id="userDescription" placeholder="Enter a description about yourself" rows="3"></textarea>
+      <button onclick="saveUserProfile()">Save Profile</button>
+    </div>
+  </div>
+
   <div id="map"></div>
 
   <div class="controls">
+    <button onclick="showProfileModal()">👤 Edit Profile</button>
     <button onclick="triggerPhotoUpload()">📷 Change Picture</button>
     <input type="file" id="photoInput" accept="image/*" onchange="updatePhoto(event)">
   </div>
@@ -80,13 +130,23 @@
   <script>
     let map, userMarker, userIcon;
     
-    // ✅ Default data (always Shahbaz)
+    // ✅ Default data (can be customized by user)
     let userData = JSON.parse(localStorage.getItem("user")) || {
-      fname: "Shahbaz",
+      fname: "User",
+      description: "This is my live location. Stay connected!",
       photo: "https://via.placeholder.com/50"
     };
 
-    window.onload = function () {
+    // Show profile modal on first visit or when user wants to edit
+    window.onload = function() {
+      if (!localStorage.getItem("user")) {
+        showProfileModal();
+      } else {
+        initializeMap();
+      }
+    };
+
+    function initializeMap() {
       const userPhoto = userData.photo;
 
       // Initialize Map
@@ -118,14 +178,14 @@
             } else {
               userMarker = L.marker([lat, lon], { icon: userIcon }).addTo(map);
 
-              // Popup with photo + Shahbaz + description
+              // Popup with photo + user name + description
               const popupContent = `
                 <div style="text-align:center;">
                   <h3 style="margin:5px 0; color:#0a5081;">📍 Live Location</h3>
                   <img src="${userPhoto}" 
                        style="width:150px; height:150px; border-radius:12px; border:2px solid #333; box-shadow:0 4px 8px rgba(0,0,0,0.4);" />
                   <p style="margin-top:8px; font-weight:bold; color:#222; font-size:18px;">👤 ${userData.fname}</p>
-                  <p style="font-size:14px; color:#555;">This is live location of ${userData.fname}.Stay Blessed</p>
+                  <p style="font-size:14px; color:#555;">${userData.description}</p>
                 </div>
               `;
               userMarker.bindPopup(popupContent).openPopup();
@@ -179,7 +239,33 @@
 
       const allCoords = floodZones.flatMap(zone => zone.coords);
       map.fitBounds(allCoords);
-    };
+    }
+
+    // Show profile modal
+    function showProfileModal() {
+      document.getElementById("userName").value = userData.fname;
+      document.getElementById("userDescription").value = userData.description;
+      document.getElementById("userProfileModal").style.display = "flex";
+    }
+
+    // Save user profile
+    function saveUserProfile() {
+      const name = document.getElementById("userName").value || "User";
+      const description = document.getElementById("userDescription").value || "This is my live location. Stay connected!";
+      
+      userData.fname = name;
+      userData.description = description;
+      
+      localStorage.setItem("user", JSON.stringify(userData));
+      
+      document.getElementById("userProfileModal").style.display = "none";
+      
+      // Reload the map with new user data
+      if (map) {
+        map.remove();
+      }
+      initializeMap();
+    }
 
     // 📷 Trigger file input
     function triggerPhotoUpload() {
@@ -216,7 +302,7 @@
               <img src="${newPhoto}" 
                    style="width:150px; height:150px; border-radius:12px; border:2px solid #333; box-shadow:0 4px 8px rgba(0,0,0,0.4);" />
               <p style="margin-top:8px; font-weight:bold; color:#222; font-size:18px;">👤 ${userData.fname}</p>
-              <p style="font-size:14px; color:#555;">This is live location of ${userData.fname}.Stay Blessed</p>
+              <p style="font-size:14px; color:#555;">${userData.description}</p>
             </div>
           `;
           userMarker.bindPopup(updatedPopup);
