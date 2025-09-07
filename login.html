@@ -56,9 +56,6 @@
   <script>
     let isLogin = true;
 
-    // ✅ Predefined account
-    const defaultUser = { username: "admin", password: "1234" };
-
     function toggleForm() {
       isLogin = !isLogin;
       document.getElementById("formTitle").innerText = isLogin ? "Login" : "Register";
@@ -78,15 +75,7 @@
       }
 
       if (isLogin) {
-        // ✅ First check predefined account
-        if (username === defaultUser.username && password === defaultUser.password) {
-          localStorage.setItem("isLoggedIn", "true");
-          alert("✅ Login successful!");
-          window.location.href = "index.html"; // redirect
-          return;
-        }
-
-        // Normal stored login
+        // Login
         const storedUser = JSON.parse(localStorage.getItem("authUser"));
         if (storedUser && storedUser.username === username && storedUser.password === password) {
           localStorage.setItem("isLoggedIn", "true");
