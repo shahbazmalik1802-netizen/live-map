@@ -281,5 +281,17 @@
       reader.readAsDataURL(file);
     }
   </script>
+  <script>
+  // Protect map.html
+  if (localStorage.getItem("isLoggedIn") !== "true") {
+    window.location.href = "login.html";
+  }
+
+  function logout() {
+    localStorage.removeItem("isLoggedIn");
+    window.location.href = "login.html";
+  }
+</script>
+
 </body>
 </html>

@@ -122,5 +122,17 @@
             copyright &copy; www.MyOnlineLocation.com. All reserved!
         </div>
     </footer>
+    <script>
+  // Protect index.html
+  if (localStorage.getItem("isLoggedIn") !== "true") {
+    window.location.href = "login.html";
+  }
+
+  function logout() {
+    localStorage.removeItem("isLoggedIn");
+    window.location.href = "login.html";
+  }
+</script>
+
 </body>
 </html>
