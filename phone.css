@@ -1,24 +1,50 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 /* Tablets and smaller desktops */
 @media screen and (max-width: 1024px) {
   .h-primary {
     font-size: 3rem;
   }
+
+  #Home {
+    padding: 20px 80px;
+    height: auto;
+  }
+
+  #services {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px;
+  }
+
+  #services .box {
+    flex: 1 1 calc(45% - 20px); /* 2 per row */
+    max-width: 45%;
+  }
 }
+
 /* Mobiles up to 768px */
 @media screen and (max-width: 768px) {
   /* Navbar */
   #navbar {
     flex-direction: column;
     align-items: center;
-    padding: 5px;
-    background: rgba(201, 196, 196, 0.7); /* subtle dark background */
+    padding: 10px;
+    background: rgba(34, 34, 34, 0.8);
   }
 
   #navbar ul {
-    flex-direction: row;         /* keep links in a row */
-    flex-wrap: wrap;             /* wrap if screen too small */
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 3px;                   /* spacing between links */
+    gap: 5px;
     margin: 5px 0 0;
     padding: 0;
     width: auto;
@@ -29,8 +55,8 @@
   }
 
   #navbar ul li a {
-    padding: 6px 14px;
-    font-size: 0.7rem;
+    padding: 6px 12px;
+    font-size: 0.8rem;
     border-radius: 20px;
     color: white;
     transition: background 0.3s;
@@ -41,52 +67,11 @@
     color: #111;
   }
 
-  
-  /* Clients */
-  #clients {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  #clients img {
-    width: 70px;
-    height: auto;
-  }
-
-  /* Contact form */
-  #contact-box form {
-    width: 90%;
-  }
-
-  .h-primary {
-    font-size: 1.6rem;
-    text-align: center;
-  }
-
-  .btn {
-    font-size: 14px;
-    padding: 8px 14px;
-  }
-
-/* Tablets (2 per row services) */
-@media screen and (max-width: 1024px) {
-  #Home {
-    padding: 20px 80px;
-    height: auto; /* adjust dynamically */
-  }
-
-  #services .box {
-    flex: 1 1 calc(45% - 20px); /* 2 per row */
-    max-width: 45%;
-  }
-}
-
-/* Mobiles (stacked) */
-@media screen and (max-width: 768px) {
+  /* Home Section */
   #Home {
     padding: 20px;
     height: auto;
+    text-align: center;
   }
 
   #Home h1 {
@@ -98,6 +83,7 @@
     line-height: 1.4;
   }
 
+  /* Services stacked */
   #services {
     flex-direction: column;
     margin: 10px;
@@ -105,19 +91,24 @@
 
   #services .box {
     max-width: 100%;
-    flex: 1 1 100%;   /* full width */
+    flex: 1 1 100%;
     margin: 10px 0;
   }
 
   #services .box img {
     max-height: 180px;
   }
+
+  .h-primary {
+    font-size: 1.6rem;
+    text-align: center;
+  }
 }
 
 /* Very small phones */
 @media screen and (max-width: 480px) {
   #Home {
-    padding: 75px;
+    padding: 20px;
   }
 
   #Home h1 {
@@ -140,6 +131,9 @@
     font-size: 0.85rem;
   }
 }
-.service-box{
-    width: 100%;
+
+/* Service box general */
+.service-box, 
+#services .box {
+  width: 100%;
 }
