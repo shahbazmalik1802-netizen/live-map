@@ -1,0 +1,145 @@
+/* Tablets and smaller desktops */
+@media screen and (max-width: 1024px) {
+  .h-primary {
+    font-size: 3rem;
+  }
+}
+/* Mobiles up to 768px */
+@media screen and (max-width: 768px) {
+  /* Navbar */
+  #navbar {
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+    background: rgba(201, 196, 196, 0.7); /* subtle dark background */
+  }
+
+  #navbar ul {
+    flex-direction: row;         /* keep links in a row */
+    flex-wrap: wrap;             /* wrap if screen too small */
+    justify-content: center;
+    gap: 3px;                   /* spacing between links */
+    margin: 5px 0 0;
+    padding: 0;
+    width: auto;
+  }
+
+  #navbar ul li {
+    list-style: none;
+  }
+
+  #navbar ul li a {
+    padding: 6px 14px;
+    font-size: 0.7rem;
+    border-radius: 20px;
+    color: white;
+    transition: background 0.3s;
+  }
+
+  #navbar ul li a:hover {
+    background: white;
+    color: #111;
+  }
+
+  
+  /* Clients */
+  #clients {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  #clients img {
+    width: 70px;
+    height: auto;
+  }
+
+  /* Contact form */
+  #contact-box form {
+    width: 90%;
+  }
+
+  .h-primary {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+
+/* Tablets (2 per row services) */
+@media screen and (max-width: 1024px) {
+  #Home {
+    padding: 20px 80px;
+    height: auto; /* adjust dynamically */
+  }
+
+  #services .box {
+    flex: 1 1 calc(45% - 20px); /* 2 per row */
+    max-width: 45%;
+  }
+}
+
+/* Mobiles (stacked) */
+@media screen and (max-width: 768px) {
+  #Home {
+    padding: 20px;
+    height: auto;
+  }
+
+  #Home h1 {
+    font-size: 2rem;
+  }
+
+  #Home p {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  #services {
+    flex-direction: column;
+    margin: 10px;
+  }
+
+  #services .box {
+    max-width: 100%;
+    flex: 1 1 100%;   /* full width */
+    margin: 10px 0;
+  }
+
+  #services .box img {
+    max-height: 180px;
+  }
+}
+
+/* Very small phones */
+@media screen and (max-width: 480px) {
+  #Home {
+    padding: 75px;
+  }
+
+  #Home h1 {
+    font-size: 1.5rem;
+  }
+
+  #Home p {
+    font-size: 0.9rem;
+  }
+
+  #services .box img {
+    max-height: 150px;
+  }
+
+  #services .box h2 {
+    font-size: 1rem;
+  }
+
+  #services .box p {
+    font-size: 0.85rem;
+  }
+}
+.service-box{
+    width: 100%;
+}
