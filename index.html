@@ -5,24 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Best Online Services |Run Time Flood Viewer</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="phone.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Bree+Serif&display=swap"> 
 </head>
 
 <body>
 
-    <nav id="navbar">
-    <div id="logo">
-        <img src="LOGO.6.jpg" alt="MyOnlineLocation.com Logo" 
-             onclick="showLogoLarge(this.src)" style="cursor:pointer;">
-    </div>
-    <ul class="nav-left">
-        <li class="item"><a href="#Home">Home</a></li>
-        <li class="item"><a href="#services">Services</a></li>
-        <li class="item"><a href="#client-section">About Us</a></li>
-        <li class="item"><a href="#Contact">Contact Us</a></li>
-        <li><a href="map.html">GPS Map</a></li>
-    </ul>
+   <nav id="navbar">
+  <div id="logo">
+    <img src="LOGO.6.jpg" alt="MyOnlineLocation.com Logo" onclick="showLogoLarge(this.src)" style="cursor:pointer;">
+  </div>
+  
+  <!-- Hamburger toggle button -->
+  <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+  
+  <ul class="nav-left">
+    <li class="item"><a href="#Home">Home</a></li>
+    <li class="item"><a href="#services">Services</a></li>
+    <li class="item"><a href="#client-section">About Us</a></li>
+    <li class="item"><a href="#Contact">Contact Us</a></li>
+    <li><a href="map.html">GPS Map</a></li>
+  </ul>
 </nav>
+
 
     <!-- Removed Login -->
     </nav>
@@ -140,16 +145,32 @@
             window.location.href = "login.html";
         }
 
-        // ✅ Send a log to backend when page loads
+        // ✅ Ask visitor for their name
+        let userName = prompt("Enter your name:", "Guest");
+        if (!userName || userName.trim() === "") {
+            userName = "Guest";
+        }
+
+        // ✅ Send a log to backend when page loads, including username
         fetch("http://localhost:5000/log", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ page: "live-map", action: "visited" })
+            body: JSON.stringify({ 
+                page: "live-map", 
+                action: "visited",
+                user: userName
+            })
         })
         .then(res => res.json())
         .then(data => console.log("✅ Log saved:", data))
         .catch(err => console.error("❌ Error logging:", err));
     </script>
+    <script>
+  function toggleMenu() {
+    document.querySelector("#navbar ul").classList.toggle("show");
+  }
+</script>
+
 
 </body>
 </html>
