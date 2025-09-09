@@ -1,139 +1,105 @@
-/* General Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* ============= RESPONSIVE DESIGN ============= */
 
-/* Tablets and smaller desktops */
-@media screen and (max-width: 1024px) {
-  .h-primary {
-    font-size: 3rem;
-  }
-
+/* Tablets (width <= 1024px) */
+@media (max-width: 1024px) {
   #Home {
-    padding: 20px 80px;
+    padding: 20px;
     height: auto;
   }
 
   #services {
-    display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 15px;
-    margin: 20px;
   }
 
-  #services .box {
-    flex: 1 1 calc(45% - 20px); /* 2 per row */
-    max-width: 45%;
+  #contact-box form {
+    width: 70%;
   }
 }
 
-/* Mobiles up to 768px */
-@media screen and (max-width: 768px) {
-  /* Navbar */
+/* Mobiles (width <= 768px) */
+@media (max-width: 768px) {
   #navbar {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     padding: 10px;
-    background: rgba(34, 34, 34, 0.8);
   }
 
   #navbar ul {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 5px;
-    margin: 5px 0 0;
-    padding: 0;
-    width: auto;
-  }
-
-  #navbar ul li {
-    list-style: none;
+    flex-direction: column;
+    width: 100%;
   }
 
   #navbar ul li a {
-    padding: 6px 12px;
-    font-size: 0.8rem;
-    border-radius: 20px;
-    color: white;
-    transition: background 0.3s;
+    padding: 10px;
+    text-align: left;
   }
 
-  #navbar ul li a:hover {
-    background: white;
-    color: #111;
-  }
-
-  /* Home Section */
   #Home {
     padding: 20px;
-    height: auto;
+  }
+
+  .h-primary {
+    font-size: 2rem;
     text-align: center;
   }
 
-  #Home h1 {
-    font-size: 2rem;
+  .h-secondary {
+    font-size: 1.2rem;
+    text-align: center;
   }
 
-  #Home p {
-    font-size: 1rem;
-    line-height: 1.4;
-  }
-
-  /* Services stacked */
   #services {
     flex-direction: column;
     margin: 10px;
   }
 
   #services .box {
-    max-width: 100%;
-    flex: 1 1 100%;
     margin: 10px 0;
+    width: 100%;
   }
 
-  #services .box img {
-    max-height: 180px;
+  #clients {
+    flex-wrap: wrap;
   }
 
-  .h-primary {
-    font-size: 1.6rem;
-    text-align: center;
+  #client-section img {
+    height: 70px;
+  }
+
+  #contact-box form {
+    width: 90%;
+  }
+
+  #map {
+    width: 100%;
+    margin: 10px auto;
+    height: 400px;
   }
 }
 
-/* Very small phones */
-@media screen and (max-width: 480px) {
-  #Home {
-    padding: 20px;
+/* Extra Small Devices (<= 480px) */
+@media (max-width: 480px) {
+  #navbar ul li a {
+    font-size: 1rem;
+    padding: 8px;
   }
 
   #Home h1 {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
   }
 
   #Home p {
-    font-size: 0.9rem;
-  }
-
-  #services .box img {
-    max-height: 150px;
-  }
-
-  #services .box h2 {
     font-size: 1rem;
   }
 
-  #services .box p {
-    font-size: 0.85rem;
+  .btn {
+    font-size: 1rem;
+    padding: 8px 16px;
   }
-}
 
-/* Service box general */
-.service-box, 
-#services .box {
-  width: 100%;
+  footer {
+    font-size: 0.9rem;
+    text-align: center;
+  }
 }
