@@ -1,74 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Best Online Services | MyOnlineLocation.com</title>
+    <title>Best Online Services |Run Time Flood Viewer</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" media="screen and (max-width:1170px)" href="phone.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Bree+Serif&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Baloo+Bhai|Bree+Serif&display=swap"> 
 </head>
 
 <body>
 
     <nav id="navbar">
-        <div id="logo">
+    <div id="logo">
+        <img src="LOGO.6.jpg" alt="MyOnlineLocation.com Logo" 
+             onclick="showLogoLarge(this.src)" style="cursor:pointer;">
+    </div>
+    <ul class="nav-left">
+        <li class="item"><a href="#Home">Home</a></li>
+        <li class="item"><a href="#services">Services</a></li>
+        <li class="item"><a href="#client-section">About Us</a></li>
+        <li class="item"><a href="#Contact">Contact Us</a></li>
+        <li><a href="map.html">GPS Map</a></li>
+    </ul>
+</nav>
 
-            <img src="logo.png" alt="MyOnlineLocation.com Logo">
-        </div>
-        <ul>
-
-            <li class="item"><a href="#Home">Home</a></li>
-            <li class="item"><a href="#services">Services</a></li>
-            <li class="item"><a href="#client-section">About Us</a></li>
-            <li class="item"><a href="#Contact ">Contact Us</a></li>
-            <li><a href="map.html">GPS Map</a></li>
-        </ul>
-       
+    <!-- Removed Login -->
     </nav>
-    <Section id="Home">
-        <h1 class="h-primary">Welcome To GPS Map</h1>
-        <p>Our live GPS map feature helps you find your exact location on the globe in real time.Using your device’s
+    <div id="logoModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; 
+     background:rgba(0,0,0,0.9); z-index:3000; justify-content:center; align-items:center;">
+  <img id="logoModalImage" src="" style="max-width:90%; max-height:90%; border-radius:12px; box-shadow:0 4px 20px rgba(255,255,255,0.3);" />
+</div>
+
+<script>
+  // ✅ Show large logo
+  function showLogoLarge(src) {
+    document.getElementById("logoModalImage").src = src;
+    document.getElementById("logoModal").style.display = "flex";
+  }
+
+  // ✅ Close modal on click
+  document.getElementById("logoModal").onclick = function() {
+    this.style.display = "none";
+  };
+</script>
+
+    <section id="Home">
+        <h1 class="h-primary">Welcome To Run Time Flood Viewer</h1>
+        <p>Our live GPS map feature helps you find your exact location on the globe in real time. Using your device’s
             built-in GPS, the map automatically updates to show where you are with a pinpoint marker. Whether you are
-            exploring a new city, checking directions,or simply curious about your current position, this tool makes
-            navigation simple and accurate.
-            The map is interactive, zoomable, and works seamlessly across both desktop and mobile devices.</p>
-        <button class="btn"> Order Now</button>
-    </Section>
-    <section class="services-container">
-        <h1 class="h-primary center"> Our Services</h1>
-        <div id="services">
-            <div class="box">
-                <img src="img.services.jpg" alt="">
-                <h2 class="h-secondary center">🌍 Live Location Tracking</h2>
-                <p class="center">Track your exact position on the map in real time with pinpoint accuracy. Our system
-                    updates instantly as you move, ensuring you always know where you are.Perfect for travel, safety,
-                    and daily navigation needs.</p>
+            exploring a new city, checking directions, or simply curious about your current position, this tool makes
+            navigation simple and accurate. The map is interactive, zoomable, and works seamlessly across both desktop
+            and mobile devices.</p>
+        <button class="btn">Order Now</button>
+    </section>
 
-            </div>
-            <div class="box">
-                <img src="img.services.jpg" alt="">
-                <h2 class="h-secondary center">🚗 Navigation & Directions</h2>
-                <p class="center">Our GPS system provides step-by-step navigation with accurate routes for driving,
-                    walking, or cycling.Users can easily find the fastest paths to their destinations. Real-time
-                    updates ensure smooth and reliable travel.</p>
+   <section class="services-container">
+    <h1 class="h-primary center">Our Services</h1>
+    <div id="services">
 
-            </div>
-            <div class="box">
-                <img src="img.services.jpg" alt="">
-                <h2 class="h-secondary center">📍 Nearby Places Search</h2>
-                <p class="center">Quickly discover nearby restaurants, hotels, hospitals, ATMs, and more with our smart
-                    search feature. The map highlights essential services around your location. This makes exploring new
-                    areas simple and convenient.</p>
-
-            </div>
-
-
+        <div class="box" id="live-location">
+            <img src="img.services.jpg" alt="">
+            <h2 class="h-secondary center">🌍 Live Location Tracking</h2>
+            <p class="center">Track your exact position on the map in real time...</p>
         </div>
 
-    </section>
+        <div class="box" id="navigation">
+            <img src="img.services.jpg" alt="">
+            <h2 class="h-secondary center">🚗 Navigation & Directions</h2>
+            <p class="center">Our GPS system provides step-by-step navigation...</p>
+        </div>
+
+        <div class="box" id="nearby">
+            <img src="img.services.jpg" alt="">
+            <h2 class="h-secondary center">📍 Nearby Places Search</h2>
+            <p class="center">Quickly discover nearby restaurants, hotels, hospitals...</p>
+        </div>
+
+    </div>
+</section>
+
 
     <section id="client-section">
         <h1 class="h-primary center">Our Clients</h1>
@@ -87,6 +97,7 @@
             </div>
         </div>
     </section>
+
     <section id="Contact">
         <h1 class="h-primary center">Contact us</h1>
         <div id="contact-box">
@@ -94,45 +105,51 @@
                 <div class="form-group">
                     <label for="name">Name: </label>
                     <input type="text" name="name" id="name" placeholder="Enter your name">
-
                 </div>
                 <div class="form-group">
-                    <label for="name">Email: </label>
-                    <input type="Email" name="name" id="name" placeholder="Enter your Email">
-
+                    <label for="email">Email: </label>
+                    <input type="email" name="email" id="email" placeholder="Enter your Email">
                 </div>
                 <div class="form-group">
-                    <label for="name">Phone Number: </label>
-                    <input type="Phone" name="name" id="name" placeholder="Enter your Phone">
-
+                    <label for="phone">Phone Number: </label>
+                    <input type="tel" name="phone" id="phone" placeholder="Enter your Phone">
                 </div>
                 <div class="form-group">
-                    <label for="name">Message: </label>
-                    <textarea name="Message" id="Message" cols="30" rows="10"></textarea>
-
+                    <label for="message">Message: </label>
+                    <textarea name="message" id="message" cols="30" rows="10"></textarea>
                 </div>
-                <button>submit</button>
+                <button>Submit</button>
             </form>
         </div>
-
     </section>
 
     <footer>
         <div class="center">
-            copyright &copy; www.MyOnlineLocation.com. All reserved!
+            copyright &copy; www.MyOnlineLocation.com. All rights reserved!
         </div>
     </footer>
-    <script>
-  // Protect index.html
-  if (localStorage.getItem("isLoggedIn") !== "true") {
-    window.location.href = "login.html";
-  }
 
-  function logout() {
-    localStorage.removeItem("isLoggedIn");
-    window.location.href = "login.html";
-  }
-</script>
+    <script>
+        // ✅ Redirect if not logged in
+        if (localStorage.getItem("isLoggedIn") !== "true") {
+            window.location.href = "login.html";
+        }
+
+        function logout() {
+            localStorage.removeItem("isLoggedIn");
+            window.location.href = "login.html";
+        }
+
+        // ✅ Send a log to backend when page loads
+        fetch("http://localhost:5000/log", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ page: "live-map", action: "visited" })
+        })
+        .then(res => res.json())
+        .then(data => console.log("✅ Log saved:", data))
+        .catch(err => console.error("❌ Error logging:", err));
+    </script>
 
 </body>
 </html>
