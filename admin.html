@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+</head>
+<body>
+  <h2>Admin Login</h2>
+  <input id="email" type="text" placeholder="Email"><br>
+  <input id="password" type="password" placeholder="Password"><br>
+  <button onclick="login()">Login</button>
+  
+  <h2>Logs</h2>
+  <button onclick="getLogs()">Show Logs</button>
+  <pre id="logOutput"></pre>
+
+  <script>
+    let token = null;
+
+    function login() {
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      fetch("http://localhost:5000/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.token) {
+          token = data.token;
+          alert("Login successful!");
+        } else {
+          alert("Login failed!");
+        }
+      });
+    }
+
+    function getLogs() {
+      if (!token) {
+        alert("Login first!");
+        return;
+      }
+
+      fetch("http://localhost:5000/admin/logs", {
+        headers: { "Authorization": token }
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("logOutput").textContent = JSON.stringify(data, null, 2);
+      });
+    }
+  </script>
+</body>
+</html>
